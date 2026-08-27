@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>서울특별시교육청 계약업무 처리지침 AI 챗봇</title>
+  <style>
+    :root{font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;color:#152238;background:#f3f6fb}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#dfeaff 0,transparent 30%),#f4f7fb}.shell{max-width:1040px;margin:0 auto;padding:42px 22px 50px}.hero{background:linear-gradient(135deg,#0d3b78,#1856a3);color:white;padding:34px;border-radius:24px;display:flex;justify-content:space-between;gap:24px;align-items:flex-start;box-shadow:0 18px 45px rgba(13,59,120,.18)}.eyebrow{font-size:11px;letter-spacing:.16em;opacity:.78}.hero h1{font-size:34px;margin:8px 0 10px}.hero p{margin:0;opacity:.88;line-height:1.65}.status{font-size:13px;background:rgba(255,255,255,.13);padding:9px 12px;border:1px solid rgba(255,255,255,.25);border-radius:999px;white-space:nowrap}.status span{display:inline-block;width:8px;height:8px;background:#75f0a7;border-radius:50%;margin-right:7px}.notice{margin:18px 0 0;background:#fff8e6;border:1px solid #f3d990;border-radius:15px;padding:14px 17px;display:flex;gap:14px;line-height:1.55;font-size:14px}.starter{padding:42px 8px 22px}.starter h2{text-align:center;font-size:25px;margin:0 0 22px}.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.chips button{border:1px solid #cbd8ec;background:white;border-radius:999px;padding:11px 15px;color:#24466f;cursor:pointer;font-size:14px}.chips button:hover{border-color:#447bc0;background:#f3f7fd}.conversation{margin-top:28px}.message{margin:0 0 26px}.role{font-size:12px;font-weight:800;color:#6a7b91;margin:0 0 7px 4px}.bubble{white-space:pre-wrap;line-height:1.75;border-radius:18px;padding:19px 21px}.user .bubble{background:#153f79;color:white;margin-left:18%;border-bottom-right-radius:5px}.assistant .bubble{background:white;border:1px solid #dfe7f1;box-shadow:0 8px 25px rgba(25,50,80,.06);margin-right:8%;border-bottom-left-radius:5px}.sources{margin:11px 8% 0 0}.sourcesTitle{font-weight:800;margin:14px 0 8px;font-size:14px}.sourceCard{background:#f8fbff;border:1px solid #dbe6f3;border-radius:12px;margin:7px 0;overflow:hidden}.sourceCard summary{cursor:pointer;padding:12px 14px;color:#24466f}.sourceText{border-top:1px solid #e3ebf5;padding:13px 15px;line-height:1.65;color:#40546d;font-size:14px;white-space:pre-wrap}.composer{position:sticky;bottom:16px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border:1px solid #dbe4ef;box-shadow:0 14px 38px rgba(27,50,80,.13);border-radius:20px;padding:12px;display:flex;gap:10px;margin-top:30px}.composer textarea{flex:1;border:0;outline:0;resize:none;padding:11px 12px;background:transparent;font:inherit;line-height:1.55;color:#18273c}.send{border:0;background:#164f96;color:white;border-radius:14px;padding:0 22px;font-weight:800;cursor:pointer}.send:disabled{opacity:.45;cursor:not-allowed}.loading{background:white;border-radius:16px;padding:16px;color:#60748c;border:1px solid #e3eaf2}.error{padding:15px;background:#fff1f1;color:#a33737;border:1px solid #efc9c9;border-radius:14px}footer{text-align:center;color:#7b8a9d;font-size:12px;padding-top:28px}@media(max-width:720px){.shell{padding:20px 12px 36px}.hero{padding:24px;display:block}.hero h1{font-size:27px}.status{display:inline-block;margin-top:18px}.notice{display:block}.user .bubble{margin-left:7%}.assistant .bubble,.sources{margin-right:0}.composer{bottom:8px;display:block}.send{width:100%;height:45px;margin-top:6px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div><div class="eyebrow">SEOUL METROPOLITAN OFFICE OF EDUCATION</div><h1>계약업무 처리지침 AI 챗봇</h1><p>2023.12.27. 개정 지침에서 근거를 찾고 Gemini가 근거 기반으로 답변합니다.</p></div>
+    <div class="status"><span></span> API 키 서버 보호</div>
+  </header>
+  <section class="notice"><strong>답변 기준</strong><span>첨부 지침에 있는 내용만 근거로 답변합니다. 실제 업무 적용 전에는 관련 법령·지침의 최신 개정 여부를 확인하세요.</span></section>
+  <section class="starter" id="starter"><h2>무엇을 확인할까요?</h2><div class="chips" id="chips"></div></section>
+  <section class="conversation" id="conversation" aria-live="polite"></section>
+  <section class="composer">
+    <textarea id="question" rows="3" maxlength="800" placeholder="예: 추정가격 2천만원 이하 물품 계약은 1인견적이 가능한가요?"></textarea>
+    <button id="send" class="send">질문하기</button>
+  </section>
+  <footer>서울특별시교육청 계약업무 처리지침(2023.12.27.) 기반 · Gemini API 키는 Vercel 서버 환경변수에만 저장됩니다.</footer>
+</main>
+<script>
+const examples=['1인견적 수의계약은 얼마까지 가능한가요?','2인이상 견적제출 수의계약 기준을 알려줘','공사 계약 체결 시 필요한 서류는?','학교 물품·용역 통합선정위원회 개최 기준은?','청렴서약서는 언제 받아야 하나요?'];
+const chips=document.getElementById('chips'), conv=document.getElementById('conversation'), q=document.getElementById('question'), send=document.getElementById('send'), starter=document.getElementById('starter');
+examples.forEach(x=>{const b=document.createElement('button');b.textContent=x;b.onclick=()=>ask(x);chips.appendChild(b)});
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addMessage(role,text,sources=[]){starter.style.display='none';const a=document.createElement('article');a.className='message '+role;a.innerHTML='<div class="role">'+(role==='user'?'질문':'AI 답변')+'</div><div class="bubble">'+esc(text)+'</div>';if(role==='assistant'&&sources.length){const box=document.createElement('div');box.className='sources';box.innerHTML='<div class="sourcesTitle">근거 조항</div>'+sources.map(s=>'<details class="sourceCard"><summary><b>['+esc(s.id)+']</b> '+esc(s.location)+'</summary><div class="sourceText">'+esc(s.text)+'</div></details>').join('');a.appendChild(box)}conv.appendChild(a);a.scrollIntoView({behavior:'smooth',block:'end'})}
+async function ask(text){const question=(text??q.value).trim();if(!question||send.disabled)return;q.value='';addMessage('user',question);send.disabled=true;send.textContent='답변 생성 중';const loading=document.createElement('div');loading.className='loading';loading.textContent='지침에서 관련 근거를 찾고 Gemini가 답변을 작성하고 있습니다.';conv.appendChild(loading);try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question})});const d=await r.json();if(!r.ok)throw new Error(d.error||'답변 생성에 실패했습니다.');loading.remove();addMessage('assistant',d.answer,d.sources||[])}catch(e){loading.className='error';loading.textContent=e.message||'오류가 발생했습니다.'}finally{send.disabled=false;send.textContent='질문하기';q.focus()}}
+send.onclick=()=>ask();q.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ask()}});
+</script>
+</body></html>
