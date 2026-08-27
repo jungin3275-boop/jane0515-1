@@ -1,4 +1,11 @@
-const data = require('../data/contracts.json');
+const CHUNKS = [
+  ...require('../data/contracts-1.json'),
+  ...require('../data/contracts-2.json'),
+  ...require('../data/contracts-3.json'),
+  ...require('../data/contracts-4.json'),
+  ...require('../data/contracts-5.json'),
+  ...require('../data/contracts-6.json')
+];
 
 const WINDOW_MS = 10 * 60 * 1000;
 const LIMIT = 25;
@@ -24,30 +31,6 @@ function checkRateLimit(key) {
   return item.count <= LIMIT;
 }
 
-function buildChunks() {
-  const chunks = [];
-  for (const chapter of data.chapters || []) {
-    for (const section of chapter.sections || []) {
-      const content = (section.content || []).map(cleanText).filter(Boolean);
-      const location = `제${chapter.number}장 ${chapter.title} > 제${section.number}절 ${section.title}`;
-      for (let i = 0; i < content.length; i += 10) {
-        const text = content.slice(i, i + 10).join('\n');
-        if (text) chunks.push({ location, text });
-      }
-    }
-  }
-  for (const appendix of data.appendices || []) {
-    const content = (appendix.content || []).map(cleanText).filter(Boolean);
-    const location = `붙임 ${appendix.id}. ${appendix.title}`;
-    for (let i = 0; i < content.length; i += 12) {
-      const text = content.slice(i, i + 12).join('\n');
-      if (text) chunks.push({ location, text });
-    }
-  }
-  return chunks;
-}
-
-const CHUNKS = buildChunks();
 const synonyms = {
   '수의': ['1인견적','2인이상','견적','수의계약'],
   '서류': ['구비서류','징구','계약서','확인서','서약서'],
